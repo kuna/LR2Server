@@ -1,0 +1,45 @@
+
+!!!! BMX2WAV
+
+!!! 概要
+
+BMS から WAV を作成します。44kHz 16bit 2ch の WAV に変換します。
+
+* #RANDOM 構文対応
+* 00 ～ ZZ までの拡張定義対応
+* 拡張 BPM 対応
+* STOP シーケンス対応
+* ロングノート対応
+* ogg 対応
+* ノーマライズ機能搭載
+* バッチ処理機能搭載
+
+
+!!! 使い方
+
+bmx2wav.exe を起動させます。
+入力 BMS ファイルを指定して変換実行ボタンを押せば WAV が作成されます。
+
+!!! マニュアル
+
+man/index.html を見て
+
+
+!!! 開発環境
+
+コンパイラ : Borland C++ Compoler 5.5.1
+IDE        : BCC Developer
+エディタ   : xyzzy
+開発言語   : C++
+
+
+!!! 更新履歴
+
+マニュアル中の更新履歴を見て。
+または history.txtを見て
+
+
+!!! 作った人
+
+NAME : TEM
+WEB  : CHILD'S SQUARE - http://childs.squares.net/

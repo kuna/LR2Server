@@ -1,0 +1,161 @@
+<!-- django format - https://docs.djangoproject.com/en/dev/ref/templates/builtins/ -->
+<!-- using bootstrap -->
+
+<html>
+<head>
+	<title>LR2Server</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<style type="text/css">
+		body { background:url({{relpath}}img/bg.jpg) repeat;}
+
+		.bmsfile_li { display:block; overflow:hidden; padding-bottom:20px; color:#666; }
+		.desc { float:left; display:block; width:320px; }
+		.score { float:right; display:block; width:200px; text-align:center; }
+		.title { clear:both; }
+
+		.score .rank { clear:both; display:block; }
+		.score .rank img { width:32px; }
+		.score .clear { clear:both; display:block; font-weight:bold; }
+		.score .bp { border-right: 1px solid #999; padding-right:7px; }
+		.score .bp, .score .rate { font-size:11px; }
+
+		.score .clear .c_fc { color:#fcc; }
+		.score .clear .c_hd { color:#c99;  }
+		.score .clear .c_normal { color:#99c; }
+		.score .clear .c_easy { color:#9c9; }
+		.score .clear .c_fail { color:#988; }
+
+		.bmsfile { padding-left: 10px; border-left:#cff 20px solid; }
+
+		.subtitle { color:#999; }
+
+		.songtitle h3 { width:580px; }
+		.songtitle .downlink { float:right; margin-top:-28px; }
+		#container h1 { color:#689; background:url({{relpath}}img/lr2.png) no-repeat 0 0; padding:5px 0 5px 56px; }
+		#container h4 { color:#abd;}
+
+		#container { width:760px; padding:20px 60px 0; margin:0 auto; box-shadow: 0px 0px 20px #888888; background-color:#f6f9ff; }
+		#content { background-color: #fff; margin:20px -60px 0; padding:10px 60px; }
+		#footer { font-size:12px; color:#999; text-align:center; font-weight: bold; padding:40px 0; }
+	</style>
+
+	<script language="javascript" src="{{relpath}}jquery.js"></script>
+	<script language="javascript" src="{{relpath}}common.js"></script>
+	<script language="javascript">
+		var relpath = "{{relpath}}";
+	</script>
+
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="{{relpath}}css/bootstrap.min.css">
+	<script language="javascript" src="{{relpath}}js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div id="container">
+		<h1>LR2Server</h1>
+		<h4>bms total {{songcnt}}</h4>
+		<span style="display:{{0page_display}};"><a href="{{relpath}}0/">if the page is too slow, then use searching per page.</a></span><br>
+		<a href="#" onclick="sortName()">Sort By Name</a> / <a href="#" onclick="sortDate()">Sort By Recent</a>
+		<span style="display:{{pager_display}};"> / <a href="{{pager_prev}}">Prev Page</a> / <a href="{{pager_next}}">Next Page</a></span><br>
+
+		<div id="search">
+			<input type="text" id="searchText" onkeydown="if (event.keyCode == 13){ showItem(); return false;}">
+			<input type="button" value="Search">
+		</div>
+
+		<div id="searchOption">
+			<label><input type="checkbox" id="c_k5">5Key</label>
+			<label><input type="checkbox" id="c_k7">7Key</label>
+			<label><input type="checkbox" id="c_k9">9Key</label>
+			<label><input type="checkbox" id="c_k10">10Key</label>
+			<label><input type="checkbox" id="c_k14">14Key</label><br>
+			<label><input type="checkbox" id="c_d1">☆1</label>
+			<label><input type="checkbox" id="c_d2">☆2</label>
+			<label><input type="checkbox" id="c_d3">☆3</label>
+			<label><input type="checkbox" id="c_d4">☆4</label>
+			<label><input type="checkbox" id="c_d5">☆5</label>
+			<label><input type="checkbox" id="c_d6">☆6</label>
+			<label><input type="checkbox" id="c_d7">☆7</label>
+			<label><input type="checkbox" id="c_d8">☆8</label>
+			<label><input type="checkbox" id="c_d9">☆9</label>
+			<label><input type="checkbox" id="c_d10">☆10</label>
+			<label><input type="checkbox" id="c_d11">☆11</label>
+			<label><input type="checkbox" id="c_d12">☆12</label>
+			<label><input type="checkbox" id="c_d12">☆13+</label><br>
+			<label><input type="checkbox" id="c_sp1">★1</label>
+			<label><input type="checkbox" id="c_sp2">★2</label>
+			<label><input type="checkbox" id="c_sp3">★3</label>
+			<label><input type="checkbox" id="c_sp4">★4</label>
+			<label><input type="checkbox" id="c_sp5">★5</label>
+			<label><input type="checkbox" id="c_sp6">★6</label>
+			<label><input type="checkbox" id="c_sp7">★7</label>
+			<label><input type="checkbox" id="c_sp8">★8</label>
+			<label><input type="checkbox" id="c_sp9">★9</label>
+			<label><input type="checkbox" id="c_sp10">★10</label>
+			<label><input type="checkbox" id="c_sp11">★11</label>
+			<label><input type="checkbox" id="c_sp12">★12</label>
+			<label><input type="checkbox" id="c_sp13">★13</label>
+			<label><input type="checkbox" id="c_sp14">★14</label>
+			<label><input type="checkbox" id="c_sp15">★15</label>
+			<label><input type="checkbox" id="c_sp16">★16</label>
+			<label><input type="checkbox" id="c_sp17">★17</label>
+			<label><input type="checkbox" id="c_sp18">★18</label>
+			<label><input type="checkbox" id="c_sp19">★19</label>
+			<label><input type="checkbox" id="c_sp20">★20</label>
+			<label><input type="checkbox" id="c_sp21">★21</label>
+			<label><input type="checkbox" id="c_sp22">★22</label>
+			<label><input type="checkbox" id="c_sp23">★23</label>
+			<label><input type="checkbox" id="c_sp24">★24</label>
+			<label><input type="checkbox" id="c_sp25">★25</label>
+			<label><input type="checkbox" id="c_spunknown">★??</label>
+		</div><br>
+
+		<div id="gradebox">
+		    <SELECT id='grade'>
+		        <option value='none'>(none)</option>
+		    	{% for row in gradelist %}
+		        <option value='{{row.1}}'>{{row.0}}</option>
+		        {% endfor %}
+		    </SELECT>
+		</div>
+
+		<div id="content">
+			<div id="songitem">
+				{% for row in dblist %}
+				<div class="songele" data-sid="{{row.0}}" data-date="{{forloop.counter}}" data-path="{{row.0}}">
+					<div class="songtitle"><h3><a href="#" id="a{{forloop.counter}}">{{row.0}}</a></h3> <a href="{{relpath}}downbms/{{forloop.counter}}/" class="downlink"><span class="label label-warning">download</span></a></div>
+					<ul class="bmsfile" id="u{{forloop.counter}}">
+					{% for bmsfile in row.1 %}
+						<li class="bmsfile_li" data-hash="{{bmsfile.0}}" data-level="{{bmsfile.14}}" data-exlevel="{{bmsfile.28}}" data-key="{{bmsfile.18}}" data-title="{{bmsfile.1}}">
+							<div class="title">
+								<a href="{{relpath}}downsabun/{{bmsfile.0}}/">{{bmsfile.1}}</a> <span class="subtitle">{{bmsfile.2}}</span> <a href="{{relpath}}downmusic/{{bmsfile.0}}/"><span class="label label-info">music</span></a>
+							</div>
+							<div class="desc">
+								BPM: {{bmsfile.16}}~{{bmsfile.17}}<br>
+								KEY: {{bmsfile.18}}<br>
+								NOTES: {{bmsfile.26}}<br>
+								LEVEL: ☆{{bmsfile.14}}
+							</div>
+							{% if bmsfile.29 %}
+								<!-- play-record -->
+								<div class="score">
+									<span class="rank">{{bmsfile.42}}</span>
+									<span class="clear">{{bmsfile.30}}</span>
+									<span class="bp">BP {{bmsfile.38}}</span>
+									<span class="rate">{{bmsfile.43}}%</span>
+								</div>
+							{% endif %}
+						</li>
+					{% endfor %}
+					</ul>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+
+		<div id="footer">
+			by @kuna_kr
+		</div>
+	</div>
+</body>
+</html>
