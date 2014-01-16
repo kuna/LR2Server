@@ -150,7 +150,12 @@ def getBMSfile(path):
     # FIXME: Change this (get paths from DB etc)
     print "start to scan %s ..." % path
 
-    filenames = glob.glob(path + "\\*")
+    _filenames = os.listdir(path)
+    filenames = []
+    for fn in _filenames:
+        filenames.append(path + "\\" + fn)
+        
+    print "%d files found" % len(filenames)
 
     # Folder name in ZIP archive which contains the above files
     # E.g [thearchive.zip]/somefiles/file2.txt
@@ -176,7 +181,7 @@ def getBMSfile(path):
     zf.close()
 
     # Grab ZIP file from in-memory, make response with correct MIME-type
-    resp = HttpResponse(s.getvalue(), mimetype = "application/x-zip-compressed")
+    resp = HttpResponse(s.getvalue(), content_type = "application/x-zip-compressed")
     # ..and correct content-disposition
     try:
         resp['Content-Disposition'] = 'attachment; filename=%s' % zip_filename.replace("\n", "_")

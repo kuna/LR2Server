@@ -215,7 +215,7 @@ function showItem() {
 				}
 
 				if (filterText && cond) {
-					if ($(this).data('title').search(new RegExp(searchText,'i')) < 0 && datapath.search(new RegExp(searchText, 'i')) < 0) {
+					if ($(this).data('title').toString().search(new RegExp(searchText,'i')) < 0 && datapath.search(new RegExp(searchText, 'i')) < 0) {
 						cond = false;
 					}
 				}
