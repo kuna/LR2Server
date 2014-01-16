@@ -12,6 +12,7 @@ lr2db.loadDB(BASE_DIR + "\\..\\LR2files\\Database\\song.db")
 import glob
 import StringIO
 import zipfile
+import unicodedata
 
 def main(request):
     # all db
@@ -102,7 +103,12 @@ def downloadMusic(request, index=""):
                 f = open(ret_file,"rb") 
                 response = HttpResponse()
                 response.write(f.read())
-                response['Content-Disposition'] = 'attachment; filename=%s' % os.path.basename(ret_file)
+                try:
+                    response['Content-Disposition'] = 'attachment; filename=%s' % os.path.basename(ret_file).replace("\n", "_")
+                except Exception, e:
+                    # remove non-ascii character
+                    rfn = os.path.basename(ret_file)
+                    response['Content-Disposition'] = 'attachment; filename=%s' % unicodedata.normalize('NFKD', rfn).encode('ascii', 'ignore')
                 response['Content-Type'] ='audio/wav'
                 response['Content-Length'] =os.path.getsize(ret_file )
                 return response
@@ -129,7 +135,11 @@ def downloadSabun(request, index=""):
         filename = BASE_DIR + "\\..\\" + filepath
         wrapper = FileWrapper(file(filename))
         response = HttpResponse(wrapper, content_type='text/plain')
-        response['Content-Disposition'] = 'attachment; filename=%s' % os.path.basename(filename)
+        try:
+            response['Content-Disposition'] = 'attachment; filename=%s' % os.path.basename(filename).replace("\n", "_")
+        except Exception, e:
+            opfn = os.path.basename(filename)
+            response['Content-Disposition'] = 'attachment; filename=%s' % unicodedata.normalize('NFKD', opfn).encode('ascii', 'ignore')
         response['Content-Length'] = os.path.getsize(filename)
         return response
 
@@ -168,6 +178,10 @@ def getBMSfile(path):
     # Grab ZIP file from in-memory, make response with correct MIME-type
     resp = HttpResponse(s.getvalue(), mimetype = "application/x-zip-compressed")
     # ..and correct content-disposition
-    resp['Content-Disposition'] = 'attachment; filename=%s' % zip_filename
+    try:
+        resp['Content-Disposition'] = 'attachment; filename=%s' % zip_filename.replace("\n", "_")
+    except Exception, e:
+        # remove non-ascii character
+        resp['Content-Disposition'] = 'attachment; filename=%s' % unicodedata.normalize('NFKD', zip_filename).encode('ascii', 'ignore')
 
     return resp
