@@ -1,6 +1,7 @@
 import subprocess
 import os
 import glob
+import locale
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -14,7 +15,7 @@ def encodeFile(bms):
 	if (os.path.isfile(filepath)):
 		pass
 	else:
-		execute(BASE_DIR+"\\bme2wav\\bmx2wavc.exe", [bms, filepath])
+		execute(BASE_DIR+"\\bme2wav\\bmx2wavc.exe", [bms.encode(locale.getpreferredencoding()), filepath.encode(locale.getpreferredencoding())])
 
 	return filepath
 
